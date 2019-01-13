@@ -3,44 +3,13 @@ import { Pizza } from '../../models/pizza.model'
 
 export interface PizzasState {
 	data: Pizza[]
-	isLoading: boolean
+	loading: boolean
 	loaded: boolean
 }
 
 export const initState: PizzasState = {
-	data: [
-		{
-			name: "Blazin' Inferno",
-			toppings: [
-				{
-					id: 10,
-					name: 'pepperoni'
-				},
-				{
-					id: 9,
-					name: 'pepper'
-				},
-				{
-					id: 3,
-					name: 'basil'
-				},
-				{
-					id: 4,
-					name: 'chili'
-				},
-				{
-					id: 7,
-					name: 'olive'
-				},
-				{
-					id: 2,
-					name: 'bacon'
-				}
-			],
-			id: 1
-		}
-	],
-	isLoading: false,
+	data: [],
+	loading: false,
 	loaded: false
 }
 
@@ -49,15 +18,11 @@ export function pizzasReducer(state: PizzasState = initState, action: PizzasActi
 		case PizzasActionType.LOAD_PIZZAS:
 			return { ...state, loading: true }
 		case PizzasActionType.LOAD_PIZZAS_SUCCESS:
-			return { ...state, loading: false, loaded: true }
+			const data = action.payload
+			return { ...state, loading: false, loaded: true, data }
 		case PizzasActionType.LOAD_PIZZAS_FAIL:
 			return { ...state, loading: false, loaded: false }
 		default:
 			return state
 	}
 }
-
-// Create projectors
-export const pizzasDataProjector = (state: PizzasState) => state.data
-export const pizzasIsloadingProjector = (state: PizzasState) => state.isLoading
-export const pizzasLoadedProjector = (state: PizzasState) => state.loaded
