@@ -8,6 +8,8 @@ import { ProductsState } from '../../store'
 import { getCurrentPizza } from '../../store/selectors/pizzas.selectors'
 import { Observable } from 'rxjs'
 import { map, filter } from 'rxjs/operators'
+import { getAllToppings } from '../../store/selectors/toppings.selectors'
+import { LoadToppings } from '../../store/actions/toppings.action'
 
 @Component({
   selector: 'product-item',
@@ -36,10 +38,8 @@ export class ProductItemComponent implements OnInit {
 
   ngOnInit() {
     this.pizza$ = this.store.select(getCurrentPizza)
-    this.toppings$ = this.pizza$.pipe(
-      filter((pizzas) => !!pizzas),
-      map((pizzas) => pizzas.toppings)
-    )
+    this.toppings$ = this.store.select(getAllToppings)
+    this.store.dispatch(new LoadToppings())
   }
 
   onSelect(event: number[]) {}
