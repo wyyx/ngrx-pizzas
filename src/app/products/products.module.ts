@@ -19,31 +19,32 @@ import { PizzasEffects } from './store/effects/pizzas.effect'
 
 // routes
 export const ROUTES: Routes = [
-	{
-		path: '',
-		component: fromContainers.ProductsComponent
-	},
-	{
-		path: ':id',
-		component: fromContainers.ProductItemComponent
-	},
-	{
-		path: 'new',
-		component: fromContainers.ProductItemComponent
-	}
+  {
+    path: '',
+    component: fromContainers.ProductsComponent
+  },
+
+  {
+    path: 'new',
+    component: fromContainers.ProductItemComponent
+  },
+  {
+    path: ':pizzaId',
+    component: fromContainers.ProductItemComponent
+  }
 ]
 
 @NgModule({
-	imports: [
-		CommonModule,
-		ReactiveFormsModule,
-		HttpClientModule,
-		RouterModule.forChild(ROUTES),
-		StoreModule.forFeature('products', productsReducers),
-		EffectsModule.forFeature([ PizzasEffects ])
-	],
-	providers: [ ...fromServices.services ],
-	declarations: [ ...fromContainers.containers, ...fromComponents.components ],
-	exports: [ ...fromContainers.containers, ...fromComponents.components ]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule.forChild(ROUTES),
+    StoreModule.forFeature('products', productsReducers),
+    EffectsModule.forFeature([PizzasEffects])
+  ],
+  providers: [...fromServices.services],
+  declarations: [...fromContainers.containers, ...fromComponents.components],
+  exports: [...fromContainers.containers, ...fromComponents.components]
 })
 export class ProductsModule {}

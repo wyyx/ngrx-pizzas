@@ -1,24 +1,14 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store'
 import { PizzasState, pizzasReducer } from './reducers/pizzas.reducer'
+import { state } from '@angular/animations'
 
 export interface ProductsState {
-	pizzas: PizzasState
+  pizzas: PizzasState
 }
 
 export const productsReducers: ActionReducerMap<ProductsState> = {
-	pizzas: pizzasReducer
+  pizzas: pizzasReducer
 }
 
-// Create selectors
+// Create products state feature selector
 export const getProductsState = createFeatureSelector<ProductsState>('products')
-export const getPizzasState = createSelector(
-	getProductsState,
-	(state: ProductsState) => state.pizzas
-)
-
-export const getAllPizzas = createSelector(getPizzasState, (state: PizzasState) => state.data)
-export const getPizzasIsloading = createSelector(
-	getPizzasState,
-	(state: PizzasState) => state.loading
-)
-export const getPizzasLoaded = createSelector(getPizzasState, (state: PizzasState) => state.loaded)
