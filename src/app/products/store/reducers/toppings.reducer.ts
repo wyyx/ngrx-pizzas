@@ -1,5 +1,6 @@
 import { Topping } from '../../models/topping.model'
 import { ToppingsActions, ToppingsActionTypes } from '../actions/toppings.action'
+import { arrayToEntities } from 'src/app/utils/entity.util'
 
 export interface ToppingsState {
   entities: { [id: string]: Topping }
@@ -21,10 +22,7 @@ export function toppingsReducer(state = initState, action: ToppingsActions): Top
         loading: true
       }
     case ToppingsActionTypes.LOAD_TOPPINGS_SUCCESS:
-      const entities = action.payload.reduce((accumToppings, topping) => {
-        return { ...accumToppings, [topping.id]: topping }
-      }, {})
-
+      const entities = arrayToEntities<Topping>(action.payload)
       return {
         ...state,
         loading: false,

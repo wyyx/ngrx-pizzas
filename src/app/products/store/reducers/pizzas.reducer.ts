@@ -1,5 +1,6 @@
 import { PizzasActions, PizzasActionTypes } from '../actions/pizzas.action'
 import { Pizza } from '../../models/pizza.model'
+import { arrayToEntities } from 'src/app/utils/entity.util'
 
 export interface PizzasState {
   entities: { [id: string]: Pizza }
@@ -18,13 +19,7 @@ export function pizzasReducer(state: PizzasState = initState, action: PizzasActi
     case PizzasActionTypes.LOAD_PIZZAS:
       return { ...state, loading: true }
     case PizzasActionTypes.LOAD_PIZZAS_SUCCESS:
-      // Convert to map structure from array
-      const entities = action.payload.reduce(
-        (accumEntities: { [id: string]: Pizza }, pizza) => {
-          return { ...accumEntities, [pizza.id]: pizza }
-        },
-        { ...state.entities }
-      )
+      const entities = arrayToEntities<Pizza>(action.payload)
       return { ...state, loading: false, loaded: true, entities }
     case PizzasActionTypes.LOAD_PIZZAS_FAIL:
       return { ...state, loading: false, loaded: false }
