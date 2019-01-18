@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core'
-import { Observable, of, never } from 'rxjs'
-import { Action, Store } from '@ngrx/store'
 import { Actions, Effect, ofType } from '@ngrx/effects'
+import { Store } from '@ngrx/store'
+import { Observable, of } from 'rxjs'
+import { catchError, map, mergeMap, mergeMapTo } from 'rxjs/operators'
+import { AppState } from 'src/app/store/reducers'
+import { PizzasService } from '../../services'
 import {
-  PizzasActionTypes,
-  PizzasActions,
-  LoadPizzasSuccess,
   LoadPizzasFail,
+  LoadPizzasSuccess,
+  PizzasActions,
+  PizzasActionTypes,
   PizzasLoaded
 } from '../actions/pizzas.action'
-import { switchMap, map, catchError, switchMapTo } from 'rxjs/operators'
-import { PizzasService } from '../../services'
-import { AppState } from 'src/app/store/reducers'
 import { getPizzasLoaded } from '../selectors/pizzas.selectors'
 
 @Injectable()
@@ -25,8 +25,8 @@ export class PizzasEffects {
   @Effect()
   loadPizzas$: Observable<PizzasActions> = this.actions$.pipe(
     ofType(PizzasActionTypes.LOAD_PIZZAS),
-    switchMapTo(this.store.select(getPizzasLoaded)),
-    switchMap(
+    mergeMapTo(this.store.select(getPizzasLoaded)),
+    mergeMap(
       (loaded): Observable<PizzasActions> =>
         loaded
           ? of(new PizzasLoaded())

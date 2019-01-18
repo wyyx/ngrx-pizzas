@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store'
 import { getProductsState } from '..'
-import { state } from '@angular/animations'
+
 export const getToppingsState = createSelector(
   getProductsState,
   (state) => state.toppings

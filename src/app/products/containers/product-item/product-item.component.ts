@@ -1,15 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core'
-
-import { Pizza } from '../../models/pizza.model'
-
-import { Topping } from '../../models/topping.model'
+import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { ProductsState } from '../../store'
-import { getCurrentPizza } from '../../store/selectors/pizzas.selectors'
 import { Observable } from 'rxjs'
-import { map, filter } from 'rxjs/operators'
-import { getAllToppings } from '../../store/selectors/toppings.selectors'
+import { Pizza } from '../../models/pizza.model'
+import { Topping } from '../../models/topping.model'
+import { ProductsState } from '../../store'
 import { LoadToppings } from '../../store/actions/toppings.action'
+import { getCurrentPizza } from '../../store/selectors/pizzas.selectors'
+import { getAllToppings } from '../../store/selectors/toppings.selectors'
 
 @Component({
   selector: 'product-item',

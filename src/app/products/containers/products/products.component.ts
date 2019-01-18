@@ -1,13 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
-
-import { Pizza } from '../../models/pizza.model'
+import { Component, OnInit } from '@angular/core'
 // import { PizzasService } from '../../services/pizzas.service'
 import { Store } from '@ngrx/store'
-import { Observable, Subject } from 'rxjs'
-import { LoadPizzas } from '../../store/actions/pizzas.action'
+import { Observable } from 'rxjs'
+import { Pizza } from '../../models/pizza.model'
 import { ProductsState } from '../../store'
-import { getAllPizzas, getPizzasLoaded } from '../../store/selectors/pizzas.selectors'
-import { switchMap, map, takeUntil, tap, take } from 'rxjs/operators'
+import { LoadPizzas } from '../../store/actions/pizzas.action'
+import { getAllPizzas } from '../../store/selectors/pizzas.selectors'
 
 @Component({
   selector: 'products',

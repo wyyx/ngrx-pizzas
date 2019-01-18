@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core'
-import { Effect, ofType, Actions } from '@ngrx/effects'
+import { Actions, Effect, ofType } from '@ngrx/effects'
+import { Store } from '@ngrx/store'
 import { Observable, of } from 'rxjs'
-import { Action } from 'rxjs/internal/scheduler/Action'
-import { mergeMap, map, catchError, switchMap, switchMapTo } from 'rxjs/operators'
-import { HttpClient } from 'selenium-webdriver/http'
+import { catchError, map, mergeMap, mergeMapTo } from 'rxjs/operators'
+import { AppState } from 'src/app/store/reducers'
+import { ToppingsService } from '../../services'
 import {
+  LoadToppingsFail,
+  LoadToppingsSuccess,
   ToppingsActions,
   ToppingsActionTypes,
-  LoadToppingsSuccess,
-  LoadToppingsFail,
   ToppingsLoaded
 } from '../actions/toppings.action'
-import { ToppingsService } from '../../services'
-import { Store } from '@ngrx/store'
-import { AppState } from 'src/app/store/reducers'
 import { getToppingsLoaded } from '../selectors/toppings.selectors'
 
 @Injectable()
@@ -27,8 +25,8 @@ export class ToppingsEffects {
   @Effect()
   loadToppings$: Observable<ToppingsActions> = this.actions$.pipe(
     ofType(ToppingsActionTypes.LOAD_TOPPINGS),
-    switchMapTo(this.store.select(getToppingsLoaded)),
-    switchMap(
+    mergeMapTo(this.store.select(getToppingsLoaded)),
+    mergeMap(
       (loaded): Observable<ToppingsActions> =>
         loaded
           ? of(new ToppingsLoaded())
