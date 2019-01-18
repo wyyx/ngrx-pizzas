@@ -20,7 +20,7 @@ export const getAllPizzas = createSelector(
   }
 )
 
-export const getPizzasIsloading = createSelector(
+export const getPizzasLoading = createSelector(
   getPizzasState,
   (state: PizzasState) => state.loading
 )

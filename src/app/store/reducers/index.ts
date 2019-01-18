@@ -2,11 +2,11 @@ import { ActionReducerMap, createFeatureSelector } from '@ngrx/store'
 import { routerReducer, RouterReducerState } from '@ngrx/router-store'
 import { RouterStateUrl } from './custom-route-serializer'
 
-export interface State {
+export interface AppState {
   router: RouterReducerState<RouterStateUrl>
 }
 
-export const reducers: ActionReducerMap<State> = {
+export const reducers: ActionReducerMap<AppState> = {
   router: routerReducer
 }
 

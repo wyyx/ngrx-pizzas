@@ -15,3 +15,8 @@ export const getAllToppings = createSelector(
   getToppingsState,
   (state) => Object.keys(state.entities).map((id) => state.entities[id])
 )
+
+export const getToppingsLoaded = createSelector(
+  getToppingsState,
+  (state) => state.loaded
+)

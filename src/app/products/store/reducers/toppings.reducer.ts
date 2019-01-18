@@ -1,5 +1,5 @@
 import { Topping } from '../../models/topping.model'
-import { ToppingsAction, ToppingsActionType } from '../actions/toppings.action'
+import { ToppingsActions, ToppingsActionTypes } from '../actions/toppings.action'
 
 export interface ToppingsState {
   entities: { [id: string]: Topping }
@@ -13,14 +13,14 @@ export const initState: ToppingsState = {
   loaded: false
 }
 
-export function toppingsReducer(state = initState, action: ToppingsAction): ToppingsState {
+export function toppingsReducer(state = initState, action: ToppingsActions): ToppingsState {
   switch (action.type) {
-    case ToppingsActionType.LOAD_TOPPINGS:
+    case ToppingsActionTypes.LOAD_TOPPINGS:
       return {
         ...state,
         loading: true
       }
-    case ToppingsActionType.LOAD_TOPPINGS_SUCCESS:
+    case ToppingsActionTypes.LOAD_TOPPINGS_SUCCESS:
       const entities = action.payload.reduce((accumToppings, topping) => {
         return { ...accumToppings, [topping.id]: topping }
       }, {})
@@ -31,11 +31,16 @@ export function toppingsReducer(state = initState, action: ToppingsAction): Topp
         loaded: true,
         entities
       }
-    case ToppingsActionType.LOAD_TOPPINGS_FAIL:
+    case ToppingsActionTypes.LOAD_TOPPINGS_FAIL:
       return {
         ...state,
         loading: false,
         loaded: false
+      }
+    case ToppingsActionTypes.TOPPINGS_LOADED:
+      return {
+        ...state,
+        loaded: true
       }
     default:
       return state
